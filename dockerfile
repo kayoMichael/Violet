@@ -1,27 +1,31 @@
-FROM node:18-alpine AS deps
-WORKDIR /base
+FROM node:18-alpine as base
+RUN apk add --no-cache g++ make py3-pip libc6-compat
+WORKDIR /app
+COPY package*.json ./
+EXPOSE 3000
 
-COPY package.json package-lock.json ./
-RUN  npm install --production
-
-FROM node:18-alpine AS builder
-WORKDIR /build
-COPY --from=deps /base/node_modules ./node_modules
-
-COPY ./app /build/app
-COPY package.json package-lock.json ./
-
-COPY tsconfig.json .
-COPY next.config.mjs .
-
+FROM base as builder
+WORKDIR /app
+COPY . .
 RUN npm run build
 
-FROM node:18-alpine AS runner
-#
+
+FROM base as production
 WORKDIR /app
 
-COPY --from=builder /build/.next ./.next
-COPY --from=builder /build/node_modules ./node_modules
-COPY --from=builder /build/package.json ./package.json
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
 
-CMD ["npm", "start"]
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
+
+CMD npm start
+
+FROM base as dev
+
+RUN npm install 
+COPY . .
+CMD npm run dev
