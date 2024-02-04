@@ -1,6 +1,11 @@
+sudo: required
 language: node_js
 node_js:
-  - "19"
+  - stable
 cache:
   directories:
   - node_modules
+install:
+  - npm install
+script:
+  - npm run build
