@@ -5,7 +5,9 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-md">
       <div>
         <Link href="/" className="btn btn-ghost text-xl placeholder-sky-100">
-          VioletTrack
+          <h1 className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+            VioletTrack
+          </h1>
         </Link>
       </div>
       <div>
