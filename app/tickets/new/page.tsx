@@ -1,6 +1,10 @@
 "use client";
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
+
+const SimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 
 const NewTicketPage = () => {
   return (
@@ -12,7 +16,10 @@ const NewTicketPage = () => {
             placeholder="Title"
             className="input input-bordered max-w-xl mb-5"
           />
-          <SimpleMDE className="max-w-xl" placeholder="Description"></SimpleMDE>
+          <SimpleMdeEditor
+            className="max-w-xl"
+            placeholder="Description"
+          ></SimpleMdeEditor>
         </div>
         <button className="btn btn-primary mt-5 w-1/6">Submit</button>
       </div>
