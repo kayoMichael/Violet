@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 const NewTicketPage = () => {
   return (
@@ -8,14 +10,11 @@ const NewTicketPage = () => {
           <input
             type="text"
             placeholder="Title"
-            className="input input-bordered max-w-lg mb-5"
+            className="input input-bordered max-w-xl mb-5"
           />
-          <textarea
-            className="textarea textarea-bordered max-w-lg"
-            placeholder="Description"
-          ></textarea>
+          <SimpleMDE className="max-w-xl" placeholder="Description"></SimpleMDE>
         </div>
-        <button className="btn btn-primary mt-5">Submit</button>
+        <button className="btn btn-primary mt-5 w-1/6">Submit</button>
       </div>
     </>
   );
