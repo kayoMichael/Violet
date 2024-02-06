@@ -4,19 +4,25 @@ import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ticketSchema } from "@/components/validations/ticketSchema";
+import { z } from "zod";
 const SimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
 
-interface ticket {
-  title: string;
-  description: string;
-}
+type ticket = z.infer<typeof ticketSchema>;
 
 const NewTicketPage = () => {
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<ticket>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ticket>({
+    resolver: zodResolver(ticketSchema),
+  });
   const [error, setError] = useState(false);
   return (
     <>
@@ -63,9 +69,10 @@ const NewTicketPage = () => {
           <input
             type="text"
             placeholder="Title"
-            className="input input-bordered mb-5"
+            className={`input input-bordered ${errors?.title && "input-error"}`}
             {...register("title")}
           />
+          <span className="text-red-400">{errors?.title?.message}</span>
           <Controller
             name="description"
             control={control}
@@ -78,6 +85,7 @@ const NewTicketPage = () => {
             )}
           ></Controller>
         </div>
+        <h1 className="text-red-400 mb-5">{errors?.description?.message}</h1>
         <button className="btn btn-primary mt-5 w-1/6">Submit</button>
       </form>
     </>
