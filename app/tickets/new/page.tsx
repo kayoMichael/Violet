@@ -69,7 +69,9 @@ const NewTicketPage = () => {
           <input
             type="text"
             placeholder="Title"
-            className={`input input-bordered ${errors?.title && "input-error"}`}
+            className={`input input-bordered ${
+              errors?.title ? "input-error" : "mb-4"
+            }`}
             {...register("title")}
           />
           <span className="text-red-400">{errors?.title?.message}</span>
@@ -85,7 +87,9 @@ const NewTicketPage = () => {
             )}
           ></Controller>
         </div>
-        <h1 className="text-red-400 mb-5">{errors?.description?.message}</h1>
+        <p className="text-red-400 mb-5">
+          {errors?.description?.message}
+        </p>
         <button className="btn btn-primary mt-5 w-1/6">Submit</button>
       </form>
     </>
