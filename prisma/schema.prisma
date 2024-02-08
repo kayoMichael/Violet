@@ -16,7 +16,7 @@ model Ticket {
   description String   @db.Text
   status      Status   @default(OPEN)
   date        DateTime @default(now())
-  updatedTIme DateTime @updatedAt
+  updatedTime DateTime @updatedAt
 }
 
 enum Status {
