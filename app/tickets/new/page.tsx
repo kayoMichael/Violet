@@ -24,11 +24,13 @@ const NewTicketPage = () => {
     resolver: zodResolver(ticketSchema),
   });
   const [error, setError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   return (
     <>
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
+            setIsSubmitting(true);
             await fetch("/api/tickets", {
               method: "POST",
               headers: {
@@ -41,6 +43,7 @@ const NewTicketPage = () => {
             });
             router.push("/tickets");
           } catch (e) {
+            setIsSubmitting(false);
             setError(true);
           }
         })}
@@ -87,10 +90,13 @@ const NewTicketPage = () => {
             )}
           ></Controller>
         </div>
-        <p className="text-red-400 mb-5">
-          {errors?.description?.message}
-        </p>
-        <button className="btn btn-primary mt-5 w-1/6">Submit</button>
+        <p className="text-red-400 mb-5">{errors?.description?.message}</p>
+        <button className="btn btn-primary mt-5" disabled={isSubmitting}>
+          Submit{" "}
+          {isSubmitting && (
+            <span className="loading loading-spinner loading-sm"></span>
+          )}
+        </button>
       </form>
     </>
   );
