@@ -3,6 +3,8 @@ import prisma from "@/prisma/client";
 import StatusBadge from "@/components/badge/statusBadge";
 import TicketButton from "./ticketButton";
 
+export const dynamic = "force-dynamic";
+
 const TicketPage = async () => {
   const tickets = await prisma.ticket.findMany();
   return (
