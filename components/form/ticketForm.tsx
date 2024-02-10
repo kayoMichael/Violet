@@ -30,17 +30,35 @@ const TicketForm = ({ ticket }: Props) => {
         onSubmit={handleSubmit(async (data) => {
           try {
             setIsSubmitting(true);
+            if (ticket) {
+              await fetch(`/api/tickets/${ticket.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                cache: "no-store",
+                body: JSON.stringify(data),
+              }).then((res) => {
+                if (!res.ok) throw new Error();
+                return res.json();
+              });
+              router.push(`/tickets/${ticket.id}`);
+              router.refresh();
+              return;
+            }
             await fetch("/api/tickets", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
+              cache: "no-store",
               body: JSON.stringify(data),
             }).then((res) => {
               if (!res.ok) throw new Error();
               return res.json();
             });
             router.push("/tickets");
+            router.refresh();
           } catch (e) {
             setIsSubmitting(false);
             setError(true);
@@ -116,7 +134,7 @@ const TicketForm = ({ ticket }: Props) => {
           />
         </div>
         <button className="btn btn-primary mt-5" disabled={isSubmitting}>
-          Submit
+          {ticket ? "Update" : "Create"} Ticket{" "}
           {isSubmitting && (
             <span className="loading loading-spinner loading-sm"></span>
           )}
