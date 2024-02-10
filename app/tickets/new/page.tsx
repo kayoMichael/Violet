@@ -1,10 +1,9 @@
 "use client";
-import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from "react-hook-form";
+import { ticketSchema } from "@/components/validations/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ticketSchema } from "@/components/validations/schema";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type ticket = z.infer<typeof ticketSchema>;
