@@ -1,5 +1,4 @@
 "use client";
-import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -91,6 +90,22 @@ const NewTicketPage = () => {
             {...register("label")}
           />
           <p className="text-red-400 mb-5">{errors?.label?.message}</p>
+          <input
+            type="text"
+            placeholder="priority"
+            className={`input input-bordered ${
+              errors?.label ? "input-error" : "mb-4"
+            }`}
+            {...register("priority")}
+          />
+          <input
+            type="text"
+            placeholder="status"
+            className={`input input-bordered ${
+              errors?.label ? "input-error" : "mb-4"
+            }`}
+            {...register("status")}
+          />
         </div>
         <button className="btn btn-primary mt-5" disabled={isSubmitting}>
           Submit{" "}
