@@ -2,6 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 
 interface Props {
@@ -9,6 +11,9 @@ interface Props {
 }
 const DeleteTicket = ({ id }: Props) => {
   const router = useRouter();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const date = new Date();
   return (
     <>
       <Button
@@ -43,22 +48,35 @@ const DeleteTicket = ({ id }: Props) => {
                 variant="destructive"
                 onClick={async () => {
                   try {
+                    setLoading(true);
                     await fetch(`/api/tickets/${id}`, {
                       method: "DELETE",
                       cache: "no-store",
                     }).then((res) => {
                       if (!res.ok) throw new Error();
-                      return res.json();
                     });
+                    setLoading(false);
                     router.push("/tickets");
                     router.refresh();
+                    toast({
+                      title: `Successfully Deleted Ticket # ${id}`,
+                      description: date.toDateString(),
+                    });
                   } catch (error) {
-                    console.error("Error:", error);
                     router.refresh();
+                    toast({
+                      variant: "destructive",
+                      title: `Sorry Something Went Wrong Deleting Ticket # ${id}`,
+                      description: date.toDateString(),
+                    });
+                    setLoading(false);
                   }
                 }}
               >
-                Delete
+                Delete{" "}
+                {loading && (
+                  <span className="loading loading-spinner loading-sm"></span>
+                )}
               </Button>
               <Button
                 variant="outline"
