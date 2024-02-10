@@ -2,7 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
-import { Checkbox } from "../ui/checkbox";
 import { Ticket } from "../validations/schema";
 import { DataTableColumnHeader } from "./tableColumnHeader";
 import DataTableRowActions from "./tableRowActions";
@@ -12,27 +11,6 @@ import { priorities, statuses } from "./data/labels";
 export const columns: ColumnDef<Ticket>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: "id",
@@ -94,8 +72,6 @@ export const columns: ColumnDef<Ticket>[] = [
       <DataTableColumnHeader column={column} title="Priority" />
     ),
     cell: ({ row }) => {
-      console.log(row);
-      console.log(priorities);
       const priority = priorities.find(
         (priority) => priority.value === row.getValue("priority")
       );
