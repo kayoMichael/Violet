@@ -2,7 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
-import { Checkbox } from "../ui/checkbox";
 import { Ticket } from "../validations/schema";
 import { DataTableColumnHeader } from "./tableColumnHeader";
 import DataTableRowActions from "./tableRowActions";
