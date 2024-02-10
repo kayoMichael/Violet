@@ -14,13 +14,30 @@ model Ticket {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(300)
   description String   @db.Text
-  status      Status   @default(OPEN)
+  status      Status   @default(open)
+  label       Label    @default(documentation)
+  priority    Priority @default(low)
   date        DateTime @default(now())
   updatedTime DateTime @updatedAt
 }
 
 enum Status {
-  OPEN
-  IN_PROGRESS
-  CLOSED
+  backlog
+  todo
+  in_progress
+  done
+  canceled
+  open
+}
+
+enum Label {
+  documentation
+  bug
+  feature
+}
+
+enum Priority {
+  low
+  medium
+  high
 }
