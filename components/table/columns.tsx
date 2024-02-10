@@ -72,8 +72,6 @@ export const columns: ColumnDef<Ticket>[] = [
       <DataTableColumnHeader column={column} title="Priority" />
     ),
     cell: ({ row }) => {
-      console.log(row);
-      console.log(priorities);
       const priority = priorities.find(
         (priority) => priority.value === row.getValue("priority")
       );
