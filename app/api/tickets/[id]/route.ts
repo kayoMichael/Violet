@@ -13,7 +13,7 @@ export async function PATCH(request: NextRequest, {params: {id}}: Props) {
         return NextResponse.json(validation.error.errors, {status: 400})
     }
 
-    const ticket = prisma.ticket.findUnique({
+    const ticket = await prisma.ticket.findUnique({
         where: {id: parseInt(id)}
     })
 
@@ -33,4 +33,20 @@ export async function PATCH(request: NextRequest, {params: {id}}: Props) {
     })
     
     return NextResponse.json(updatedTicket, {status: 200})
+}
+
+export async function DELETE(request: NextRequest, {params: {id}}: Props) {
+    const ticket = await prisma.ticket.findUnique({
+        where: {id: parseInt(id)}
+    })
+
+    if (!ticket) {
+        return NextResponse.json({error: "Ticket not found"}, {status: 404})
+    }
+
+    const deletedTicket = await prisma.ticket.delete({
+        where: {id: parseInt(id)}
+    });
+
+    return NextResponse.json(deletedTicket, {status: 200})
 }
