@@ -7,9 +7,6 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema } from "@/components/validations/schema";
 import { z } from "zod";
-const SimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
 
 type ticket = z.infer<typeof ticketSchema>;
 
@@ -78,19 +75,23 @@ const NewTicketPage = () => {
             {...register("title")}
           />
           <span className="text-red-400">{errors?.title?.message}</span>
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <SimpleMdeEditor
-                className="max-w-xl"
-                placeholder="Description"
-                {...field}
-              ></SimpleMdeEditor>
-            )}
-          ></Controller>
+          <textarea
+            className="textarea textarea-bordered"
+            placeholder="Description"
+            {...register("description")}
+          ></textarea>
+          <p className="text-red-400 mb-5">{errors?.description?.message}</p>
+
+          <input
+            type="text"
+            placeholder="Ticket Label"
+            className={`input input-bordered ${
+              errors?.label ? "input-error" : "mb-4"
+            }`}
+            {...register("label")}
+          />
+          <p className="text-red-400 mb-5">{errors?.label?.message}</p>
         </div>
-        <p className="text-red-400 mb-5">{errors?.description?.message}</p>
         <button className="btn btn-primary mt-5" disabled={isSubmitting}>
           Submit{" "}
           {isSubmitting && (
