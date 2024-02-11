@@ -2,11 +2,18 @@ import prisma from '@/prisma/client';
 import { ticketSchema } from "@/components/validations/schema";
 import { NextRequest} from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from 'next-auth';
+import authOptions from '../../auth/authOptions';
 
 interface Props {
     params: {id: string}
 }
 export async function PATCH(request: NextRequest, {params: {id}}: Props) {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+        return NextResponse.json({error: "Unauthorized"}, {status: 401})
+    }
     const body = await request.json();
     const validation = ticketSchema.safeParse(body);
     if (!validation.success) {
@@ -36,6 +43,11 @@ export async function PATCH(request: NextRequest, {params: {id}}: Props) {
 }
 
 export async function DELETE(request: NextRequest, {params: {id}}: Props) {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+        return NextResponse.json({error: "Unauthorized"}, {status: 401})
+    }
     const ticket = await prisma.ticket.findUnique({
         where: {id: parseInt(id)}
     })
