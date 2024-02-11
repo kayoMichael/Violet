@@ -5,6 +5,7 @@ import ReactMarkDown from "react-markdown";
 import { Pencil2Icon, Cross2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import DeleteTicket from "./delete";
+import AssignTicket from "./assign";
 
 interface Props {
   params: { id: string };
@@ -32,6 +33,7 @@ const TicketDetailPage = async ({ params: { id } }: Props) => {
           </Button>
         </Link>
         <DeleteTicket id={ticket.id} />
+        <AssignTicket></AssignTicket>
       </div>
       <h1 className="font-extrabold text-xl mb-10 mt-10">{ticket.title}</h1>
       <div className="overflow-x-auto">
