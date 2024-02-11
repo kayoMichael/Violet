@@ -57,7 +57,7 @@ const TicketDetailPage = async ({ params: { id } }: Props) => {
       <div>
         <div className="card bg-base-100 shadow-xl mt-3">
           <div className="card-body prose max-w-none prose-neutral">
-            <ReactMarkDown className="">{ticket.description}</ReactMarkDown>
+            <ReactMarkDown>{ticket.description}</ReactMarkDown>
           </div>
         </div>
       </div>
