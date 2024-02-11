@@ -1,10 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
+  output        = "../node_modules/.prisma/client"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
-  output        = "./generated/client"
 }
 
 datasource db {
@@ -17,10 +14,10 @@ model Ticket {
   title       String   @db.VarChar(300)
   description String   @db.Text
   status      Status   @default(open)
-  label       Label    @default(documentation)
-  priority    Priority @default(low)
   date        DateTime @default(now())
   updatedTime DateTime @updatedAt
+  label       Label    @default(documentation)
+  priority    Priority @default(low)
 }
 
 enum Status {
