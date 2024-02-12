@@ -8,11 +8,12 @@ This Task Manager app is designed to help users organize and manage their tasks 
 
 ## Getting Started
 
-### Local Start
-
-[Node.js](https://nodejs.org/) (version 18 or higher)
-
-```bash
-npm install
-npm run dev
-```
+## Stack
+- Next 14 App router
+- Prisma/MySQL
+- Typescript
+- DaisyUI
+- ShadcnUI
+- Tailwind CSS
+- NextAuthJS
+  
