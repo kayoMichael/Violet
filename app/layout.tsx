@@ -22,10 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryClientProvider>
-          <AuthProvider>
-            <Navbar /> {children}
-            <Toaster />
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </QueryClientProvider>
       </body>
     </html>
