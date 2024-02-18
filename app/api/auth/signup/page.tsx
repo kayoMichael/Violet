@@ -4,14 +4,15 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { UserLogInForm } from "@/components/form/user-login-form";
+import { UserAuthForm } from "../../../../components/form/user-auth-form";
 
+import { handleSignup } from "../action";
 export const metadata: Metadata = {
   title: "Authentication",
   description: "Authentication forms built using the components.",
 };
 
-export default function AuthenticationPage() {
+export default function SignUpPage() {
   return (
     <>
       <div className="md:hidden">
@@ -32,13 +33,13 @@ export default function AuthenticationPage() {
       </div>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
-          href="/api/auth/signup"
+          href="/api/auth/signin"
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "absolute right-4 top-4 md:right-8 md:top-8"
           )}
         >
-          Create an account
+          Log In
         </Link>
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
           <div className="absolute inset-0 bg-zinc-900" />
@@ -59,12 +60,8 @@ export default function AuthenticationPage() {
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
-              <p className="text-lg">
-                &ldquo;When you build something, the quality is good not because
-                of the cost of its materials. Its good only if it overcame
-                Failure&rdquo;
-              </p>
-              <footer className="text-sm">~Mutta Nanba</footer>
+              <p className="text-lg">&ldquo;It's a Piece of Cake!&rdquo;</p>
+              <footer className="text-sm">~Sharon Kaneko</footer>
             </blockquote>
           </div>
         </div>
@@ -78,7 +75,7 @@ export default function AuthenticationPage() {
                 Enter your credentials below to log in
               </p>
             </div>
-            <UserLogInForm></UserLogInForm>
+            <UserAuthForm type="signup" serverAction={handleSignup} />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
