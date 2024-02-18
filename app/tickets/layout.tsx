@@ -5,8 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 const mainPageLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
-      {" "}
-      <Navbar /> {children}
+      <Navbar />
+      {children}
       <Toaster />
     </div>
   );
