@@ -3,11 +3,23 @@ import prisma from "@/prisma/client";
 import TicketTable from "@/components/table/ticketTable";
 import { columns } from "@/components/table/columns";
 import TicketButton from "./ticketButton";
+import { getServerSession } from "next-auth/next";
+import authOptions from "../api/auth/authOptions";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 const TicketPage = async () => {
-  const tickets = await prisma.ticket.findMany();
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
+
+  const ticket = await prisma.ticket.findMany({
+    where: {
+      email: session.user!.email!,
+    },
+  });
   return (
     <div>
       <TicketButton />
@@ -21,7 +33,7 @@ const TicketPage = async () => {
           </div>
           <div className="flex items-center space-x-2"></div>
         </div>
-        <TicketTable data={tickets} columns={columns} />
+        <TicketTable data={ticket} columns={columns} />
       </div>
     </div>
   );

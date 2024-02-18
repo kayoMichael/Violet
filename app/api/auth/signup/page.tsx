@@ -60,7 +60,9 @@ export default function SignUpPage() {
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
-              <p className="text-lg">&ldquo;It's a Piece of Cake!&rdquo;</p>
+              <p className="text-lg">
+                &ldquo;It&apos;s a Piece of Cake!&rdquo;
+              </p>
               <footer className="text-sm">~Sharon Kaneko</footer>
             </blockquote>
           </div>

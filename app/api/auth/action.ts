@@ -57,8 +57,8 @@ export const handleSignup = async (
           password: await bcrypt.hash(signUpInfo.password!.toString(), 10),
         },
       });
-      revalidatePath("/api/auth/signup");
-      redirect("/api/auth/signin");
+      revalidatePath("/auth/signin");
+      redirect("/auth/signin");
     } catch (error) {
       message.status = "error";
       message.email = ["このメールアドレスは既に登録されています。"];
