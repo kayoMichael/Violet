@@ -19,7 +19,7 @@ model Ticket {
   label       Label    @default(documentation)
   priority    Priority @default(low)
   assignee    String?  @db.VarChar(300)
-  assignedTo  User?    @relation("AssignedTo", fields: [assignee], references: [id])
+  email       String
 }
 
 enum Status {
@@ -79,7 +79,6 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Ticket        Ticket[]  @relation("AssignedTo")
 }
 
 model VerificationToken {
