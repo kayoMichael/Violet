@@ -186,8 +186,8 @@ const TicketForm = ({ ticket }: Props) => {
           </div>
           <label className="label">Status:</label>
           {statuses.map((status) => (
-            <div className="form-control">
-              <label className="cursor-pointer label" key={status.value}>
+            <div className="form-control" key={status.value}>
+              <label className="cursor-pointer label">
                 <span className="label-text">{status.label}</span>
                 <input
                   type="radio"
