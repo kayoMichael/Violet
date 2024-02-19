@@ -42,7 +42,7 @@ export const statuses = [
   },
   {
     value: "done",
-    label: "Done",
+    label: "Complete",
     icon: CheckCircledIcon,
   },
   {

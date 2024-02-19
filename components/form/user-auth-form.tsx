@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/ui/icons";
-import { returnMessage } from "@/app/api/auth/action";
+import { returnMessage } from "@/app/auth/action";
 import { useFormState, useFormStatus } from "react-dom";
 
 import { signIn } from "next-auth/react";
@@ -106,7 +106,7 @@ export function UserAuthForm({ serverAction, type }: Props) {
         type="button"
         disabled={pending}
         className="mt-0"
-        onClick={() => signIn("google", { callbackUrl: "/" })}
+        onClick={() => signIn("google", { callbackUrl: "/tickets" })}
       >
         {pending ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
