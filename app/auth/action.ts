@@ -39,7 +39,6 @@ export const handleSignup = async (
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
   };
-
   const result = signUpSchema.safeParse(signUpInfo);
   if (!result.success) {
     const error = result.error.flatten().fieldErrors;
@@ -57,12 +56,13 @@ export const handleSignup = async (
           password: await bcrypt.hash(signUpInfo.password!.toString(), 10),
         },
       });
-      revalidatePath("/auth/signin");
-      redirect("/auth/signin");
     } catch (error) {
       message.status = "error";
       message.email = ["このメールアドレスは既に登録されています。"];
+      return message;
     }
   }
+  revalidatePath("/auth/signup");
+  redirect("/auth/signup/confirmation");
   return message;
 };
