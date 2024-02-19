@@ -42,10 +42,6 @@ export function UserLogInForm() {
       redirect: false,
     });
 
-    console.log("configuring...");
-
-    console.log(result);
-
     if (!result?.ok) {
       return;
     } else {
@@ -109,7 +105,7 @@ export function UserLogInForm() {
         variant="outline"
         type="button"
         className="mt-0"
-        onClick={() => signIn("google", { callbackUrl: "/" })}
+        onClick={() => signIn("google", { callbackUrl: "/tickets" })}
       >
         {/* {pending ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
