@@ -2,14 +2,14 @@
 
 import * as React from "react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/ui/icons";
 import { returnMessage } from "@/app/auth/action";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 
 import { signIn } from "next-auth/react";
+import SubmitButton from "../button/submitButton";
 
 interface Props {
   serverAction: (
@@ -28,7 +28,6 @@ export function UserAuthForm({ serverAction, type }: Props) {
   } as returnMessage;
 
   const [state, formAction] = useFormState(serverAction, statusState);
-  const { pending } = useFormStatus();
 
   return (
     <div className="grid gap-4">
@@ -46,8 +45,6 @@ export function UserAuthForm({ serverAction, type }: Props) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              disabled={pending}
-              required
             />
             <Input
               id="Password"
@@ -56,8 +53,6 @@ export function UserAuthForm({ serverAction, type }: Props) {
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
-              disabled={pending}
-              required
             />
             {type === "signup" && (
               <Input
@@ -67,15 +62,10 @@ export function UserAuthForm({ serverAction, type }: Props) {
                 type="password"
                 autoCapitalize="none"
                 autoCorrect="off"
-                disabled={pending}
-                required
               />
             )}
           </div>
-          <Button disabled={pending}>
-            {pending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-            Sign Up with Credentials
-          </Button>
+          <SubmitButton>Sign Up with Credentials</SubmitButton>
         </div>
       </form>
       <div className="relative">
@@ -88,33 +78,18 @@ export function UserAuthForm({ serverAction, type }: Props) {
           </span>
         </div>
       </div>
-      <Button
-        variant="outline"
-        type="button"
-        disabled={pending}
-        className="mb-0"
-      >
-        {pending ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
+      <SubmitButton variant="outline" className="mb-0">
+        <Icons.gitHub className="mr-2 h-4 w-4" />
         GitHub
-      </Button>
-      <Button
+      </SubmitButton>
+      <SubmitButton
         variant="outline"
-        type="button"
-        disabled={pending}
         className="mt-0"
-        onClick={() => signIn("google", { callbackUrl: "/tickets" })}
+        handleClick={() => signIn("google", { callbackUrl: "/tickets" })}
       >
-        {pending ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.google className="mr-2 h-4 w-4" />
-        )}{" "}
+        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         Google
-      </Button>
+      </SubmitButton>
     </div>
   );
 }

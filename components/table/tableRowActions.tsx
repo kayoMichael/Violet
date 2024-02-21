@@ -18,7 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import DeleteTicket from "@/app/tickets/[id]/delete";
+import DeleteTicket from "@/app/(project)/tickets/[id]/delete";
 
 export const labels = [
   {
@@ -57,11 +57,7 @@ const DataTableRowActions = <TData,>({
         <DropdownMenuItem asChild>
           <Link href={`/tickets/${row.getValue("id")}/edit`}>Edit</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => navigator.clipboard.write(row.getValue("title"))}
-        >
-          Copy Details
-        </DropdownMenuItem>
+        <DropdownMenuItem>Copy Details</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DeleteTicket id={row.getValue("id")} type="dropdown"></DeleteTicket>
       </DropdownMenuContent>
