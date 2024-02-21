@@ -16,6 +16,7 @@ import { Input } from "../ui/input";
 import { DataTableViewOptions } from "./tableDataViewOptions";
 import { DataTableFacetedFilter } from "./tableFacetedFilter";
 import { statuses, priorities } from "./data/labels";
+import TicketButton from "@/app/(project)/tickets/ticketButton";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -24,7 +25,6 @@ export const DataTableToolBar = <TData,>({
   table,
 }: DataTableToolbarProps<TData>) => {
   const isFiltered = table.getState().columnFilters.length > 0;
-
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -50,6 +50,7 @@ export const DataTableToolBar = <TData,>({
             options={priorities}
           />
         )}
+        <TicketButton />
         {isFiltered && (
           <Button
             variant="ghost"

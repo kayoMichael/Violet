@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { useState } from "react";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
@@ -16,6 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import DeleteTicket from "@/app/(project)/tickets/[id]/delete";
 
 export const labels = [
   {
@@ -51,27 +54,12 @@ const DataTableRowActions = <TData,>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+        <DropdownMenuItem asChild>
+          <Link href={`/tickets/${row.getValue("id")}/edit`}>Edit</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem>Copy Details</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DeleteTicket id={row.getValue("id")} type="dropdown"></DeleteTicket>
       </DropdownMenuContent>
     </DropdownMenu>
   );

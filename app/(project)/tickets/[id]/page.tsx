@@ -33,7 +33,6 @@ const TicketDetailPage = async ({ params: { id } }: Props) => {
           </Button>
         </Link>
         <DeleteTicket id={ticket.id} />
-        <AssignTicket></AssignTicket>
       </div>
       <h1 className="font-extrabold text-xl mb-10 mt-10">{ticket.title}</h1>
       <div className="overflow-x-auto">

@@ -7,6 +7,7 @@ import { DataTableColumnHeader } from "./tableColumnHeader";
 import DataTableRowActions from "./tableRowActions";
 import { labels } from "./tableRowActions";
 import { priorities, statuses } from "./data/labels";
+import Link from "next/link";
 
 export const columns: ColumnDef<Ticket>[] = [
   {
@@ -17,7 +18,15 @@ export const columns: ColumnDef<Ticket>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Task" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => (
+      <Link
+        className="w-[80px]"
+        href={`/tickets/${parseInt(row.getValue("id"))}`}
+        legacyBehavior
+      >
+        {row.getValue("id")}
+      </Link>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -30,12 +39,15 @@ export const columns: ColumnDef<Ticket>[] = [
       const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2">
+        <Link
+          className="flex space-x-2"
+          href={`/tickets/${parseInt(row.getValue("id"))}`}
+        >
           {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
-        </div>
+        </Link>
       );
     },
   },
