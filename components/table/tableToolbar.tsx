@@ -16,7 +16,7 @@ import { Input } from "../ui/input";
 import { DataTableViewOptions } from "./tableDataViewOptions";
 import { DataTableFacetedFilter } from "./tableFacetedFilter";
 import { statuses, priorities } from "./data/labels";
-import TicketButton from "@/app/tickets/ticketButton";
+import TicketButton from "@/app/(project)/tickets/ticketButton";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

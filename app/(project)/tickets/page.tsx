@@ -3,7 +3,7 @@ import prisma from "@/prisma/client";
 import TicketTable from "@/components/table/ticketTable";
 import { columns } from "@/components/table/columns";
 import { getServerSession } from "next-auth/next";
-import authOptions from "../api/auth/authOptions";
+import authOptions from "../../api/auth/authOptions";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";

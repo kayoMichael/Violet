@@ -17,7 +17,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Link href="/" className="btn btn-ghost text-md">
+        <Link href="/dashboard" className="btn btn-ghost text-md">
           Dashboard
         </Link>
       </div>
