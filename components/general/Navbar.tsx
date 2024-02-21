@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useSession } from "next-auth/react";
 import Skeleton from "react-loading-skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import "react-loading-skeleton/dist/skeleton.css";
 const Navbar = () => {
   const { status, data: session } = useSession();
@@ -16,7 +17,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Link href="/" className="btn btn-ghost text-md">
+        <Link href="/dashboard" className="btn btn-ghost text-md">
           Dashboard
         </Link>
       </div>
@@ -34,13 +35,14 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar mr-3"
               >
-                <div className="w-10 rounded-full">
-                  <img
+                <Avatar>
+                  <AvatarImage
                     alt="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                     src={session?.user!.image!}
                     referrerPolicy="no-referrer"
                   />
-                </div>
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
               </div>
               <ul
                 tabIndex={0}

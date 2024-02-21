@@ -18,6 +18,8 @@ model Ticket {
   updatedTime DateTime @updatedAt
   label       Label    @default(documentation)
   priority    Priority @default(low)
+  assignee    String?  @db.VarChar(300)
+  email       String
 }
 
 enum Status {
@@ -71,6 +73,7 @@ model Session {
 model User {
   id            String    @id @default(cuid()) @map("_id")
   name          String?
+  password      String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
