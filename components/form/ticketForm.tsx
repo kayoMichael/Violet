@@ -2,9 +2,11 @@
 import { ticketSchema } from "@/components/validations/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { statuses } from "../table/data/labels";
+import { labels } from "../table/data/labels";
+import { priorities } from "../table/data/labels";
 import { Ticket } from "@/components/validations/schema";
 import { Ticket as TicketType } from "@prisma/client";
 
@@ -16,7 +18,6 @@ const TicketForm = ({ ticket }: Props) => {
   const router = useRouter();
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<Ticket>({
@@ -96,112 +97,53 @@ const TicketForm = ({ ticket }: Props) => {
             {...register("title")}
           />
           <span className="text-red-400">{errors?.title?.message}</span>
-          <div className="flex">
-            <label className="label cursor-pointer">
-              <div className="flex gap-10">
-                <span className="label-text">Documentation</span>
-                <input
-                  type="radio"
-                  {...register("label")}
-                  className={`radio radio-primary ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket ? ticket.label === "documentation" : true}
-                  value="documentation"
-                />
-              </div>
-            </label>
-            <label className="label cursor-pointer">
-              <div className="flex gap-10 ml-3">
-                <span className="label-text">Bug</span>
-                <input
-                  type="radio"
-                  {...register("label")}
-                  className={`radio radio-primary ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket?.label === "bug"}
-                  value="bug"
-                />
-              </div>
-            </label>
-            <label className="label cursor-pointer">
-              <div className="flex gap-10 ml-3">
-                <span className="label-text">Feature</span>
-                <input
-                  type="radio"
-                  {...register("label")}
-                  className={`radio radio-primary ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket?.label === "feature"}
-                  value="feature"
-                />
-              </div>
-            </label>
+          <div className="flex gap-3 justify-center">
+            <select
+              className="select w-full max-w-xs bg-secondary"
+              defaultValue={ticket ? `${ticket.status}` : "default"}
+              {...register("status")}
+            >
+              <option disabled value="default">
+                Status
+              </option>
+              {statuses.map((status) => (
+                <option key={status.label} value={status.value}>
+                  {status.label}
+                </option>
+              ))}
+            </select>
+            <select
+              className="select w-full max-w-xs bg-primary"
+              defaultValue={ticket ? `${ticket.label}` : "default"}
+              {...register("label")}
+            >
+              <option disabled value="default">
+                Label
+              </option>
+              {labels.map((label) => (
+                <option key={label.label} value={label.value}>
+                  {label.label}
+                </option>
+              ))}
+            </select>
+            <select
+              className="select w-full max-w-xs bg-purple-400"
+              defaultValue={ticket ? `${ticket.priority}` : "default"}
+              {...register("priority")}
+            >
+              <option disabled value="default">
+                Priority
+              </option>
+              {priorities.map((priority) => (
+                <option key={priority.label} value={priority.value}>
+                  {priority.label}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="flex">
-            <label className="label cursor-pointer">
-              <div className="flex gap-28">
-                <span className="label-text mr-0.5">Low</span>
-                <input
-                  type="radio"
-                  {...register("priority")}
-                  className={`radio radio-info ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket ? ticket.priority === "low" : true}
-                  value="low"
-                />
-              </div>
-            </label>
-            <label className="label cursor-pointer">
-              <div className="flex gap-3 ml-3">
-                <span className="label-text">Medium</span>
-                <input
-                  type="radio"
-                  {...register("priority")}
-                  className={`radio radio-info ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket?.priority === "medium"}
-                  value="medium"
-                />
-              </div>
-            </label>
-            <label className="label cursor-pointer">
-              <div className="flex gap-12 ml-3">
-                <span className="label-text mr-3">High</span>
-                <input
-                  type="radio"
-                  {...register("priority")}
-                  className={`radio radio-info ${
-                    errors?.label ? "input-error" : "mb-4"
-                  }`}
-                  checked={ticket?.priority === "high"}
-                  value="high"
-                />
-              </div>
-            </label>
-          </div>
-          <label className="label">Status:</label>
-          {statuses.map((status) => (
-            <div className="form-control" key={status.value}>
-              <label className="cursor-pointer label">
-                <span className="label-text">{status.label}</span>
-                <input
-                  type="radio"
-                  {...register("status")}
-                  className="radio radio-info"
-                  value={status.value}
-                  checked={ticket ? ticket.status === status.value : true}
-                />
-              </label>
-            </div>
-          ))}
         </div>
         <textarea
-          className="textarea textarea-bordered resize-y h-40 w-full"
+          className="textarea textarea-bordered resize-y h-40 w-full mt-10"
           placeholder="Description"
           defaultValue={ticket?.description}
           {...register("description")}
