@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Ticket {
-  id          Int      @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())  @map("_id")
   title       String   @db.VarChar(300)
   description String   @db.Text
   status      Status   @default(open)
