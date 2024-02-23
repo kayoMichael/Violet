@@ -87,7 +87,7 @@ export function UserAuthForm({ serverAction, type }: Props) {
         className="mt-0"
         handleClick={() => signIn("google", { callbackUrl: "/tickets" })}
       >
-        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        <Icons.google className="mr-2 h-4 w-4" />
         Google
       </SubmitButton>
     </div>

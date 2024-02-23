@@ -29,30 +29,34 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials?.username,
-          },
-        });
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials?.username,
+            },
+          });
 
-        if (!user) {
+          if (!user) {
+            return null;
+          }
+
+          if (!credentials?.password || !user.password) {
+            return null;
+          }
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            user.password,
+          );
+
+          if (!isPasswordCorrect) {
+            return null;
+          }
+
+          const { password, ...userWithoutPass } = user;
+          return userWithoutPass;
+        } catch (error) {
           return null;
         }
-
-        if (!credentials?.password || !user.password) {
-          return null;
-        }
-        const isPasswordCorrect = await bcrypt.compare(
-          credentials.password,
-          user.password,
-        );
-
-        if (!isPasswordCorrect) {
-          return null;
-        }
-
-        const { password, ...userWithoutPass } = user;
-        return userWithoutPass;
       },
     }),
   ],
