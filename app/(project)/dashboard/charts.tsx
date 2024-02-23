@@ -1,4 +1,5 @@
 "use client";
+import { Ticket } from "@prisma/client";
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
@@ -11,58 +12,67 @@ console.error = (...args: any) => {
   error(...args);
 };
 
-const data = [
-  {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-];
+interface Props {
+  tickets: Ticket[];
+}
 
-export function Charts() {
+export function Charts({ tickets }: Props) {
+  const data = [
+    {
+      name: "Jan",
+      total: 0,
+    },
+    {
+      name: "Feb",
+      total: 0,
+    },
+    {
+      name: "Mar",
+      total: 0,
+    },
+    {
+      name: "Apr",
+      total: 0,
+    },
+    {
+      name: "May",
+      total: 0,
+    },
+    {
+      name: "Jun",
+      total: 0,
+    },
+    {
+      name: "Jul",
+      total: 0,
+    },
+    {
+      name: "Aug",
+      total: 0,
+    },
+    {
+      name: "Sep",
+      total: 0,
+    },
+    {
+      name: "Oct",
+      total: 0,
+    },
+    {
+      name: "Nov",
+      total: 0,
+    },
+    {
+      name: "Dec",
+      total: 0,
+    },
+  ];
+  const date = new Date();
+  tickets.forEach((ticket) => {
+    if (new Date(ticket.date).getFullYear() !== date.getFullYear()) return;
+    const month = new Date(ticket.date).getMonth();
+    data[month].total += 1;
+  });
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -78,7 +88,7 @@ export function Charts() {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value) => `${value}`}
         />
         <Bar
           dataKey="total"
