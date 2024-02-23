@@ -24,28 +24,39 @@ const DashBoardPage = async () => {
     },
   });
 
+  const newestTickets = await prisma.ticket.findMany({
+    where: {
+      email: session.user!.email!,
+    },
+    orderBy: {
+      date: "desc",
+    },
+    take: 5,
+  });
+
   const currentDate = new Date();
 
   const countMonth = (month: number) => {
-    const ticketsThisMonth = tickets.filter((ticket) => {
+    const totalTicketsThisMonth = tickets.filter((ticket) => {
       return ticket.date.getMonth() === month;
-    }).length;
-    const openedThisMonth = tickets.filter(
+    });
+    const ticketsThisMonth = totalTicketsThisMonth.length;
+    const openedThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "open"
     ).length;
-    const closedThisMonth = tickets.filter(
+    const closedThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "done"
     ).length;
-    const inProgressThisMonth = tickets.filter(
+    const inProgressThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "in_progress"
     ).length;
-    const backLogThisMonth = tickets.filter(
+    const backLogThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "backlog"
     ).length;
-    const cancelledThisMonth = tickets.filter(
+    const cancelledThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "canceled"
     ).length;
-    const toDoThisMonth = tickets.filter(
+    const toDoThisMonth = totalTicketsThisMonth.filter(
       (ticket) => ticket.status === "todo"
     ).length;
     return {
@@ -70,22 +81,28 @@ const DashBoardPage = async () => {
 
   // Current Total Tickets
   const count = tickets.length;
-  const opened =
-    (tickets.filter((ticket) => ticket.status === "open").length / count) * 100;
-  const closed =
-    (tickets.filter((ticket) => ticket.status === "done").length / count) * 100;
-  const inProgress =
+  const opened = Math.round(
+    (tickets.filter((ticket) => ticket.status === "open").length / count) * 100
+  );
+  const closed = Math.round(
+    (tickets.filter((ticket) => ticket.status === "done").length / count) * 100
+  );
+  const inProgress = Math.round(
     (tickets.filter((ticket) => ticket.status === "in_progress").length /
       count) *
-    100;
-  const backLog =
+      100
+  );
+  const backLog = Math.round(
     (tickets.filter((ticket) => ticket.status === "backlog").length / count) *
-    100;
-  const cancelled =
+      100
+  );
+  const cancelled = Math.round(
     (tickets.filter((ticket) => ticket.status === "canceled").length / count) *
-    100;
-  const toDo =
-    (tickets.filter((ticket) => ticket.status === "todo").length / count) * 100;
+      100
+  );
+  const toDo = Math.round(
+    (tickets.filter((ticket) => ticket.status === "todo").length / count) * 100
+  );
 
   const current = countMonth(currentDate.getMonth());
   const previous = countMonth(currentDate.getMonth() - 1);
@@ -314,16 +331,21 @@ const DashBoardPage = async () => {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Charts />
+            <Charts tickets={tickets} />
           </CardContent>
         </Card>
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
-            <CardDescription>You made 265 sales this month.</CardDescription>
+            <CardTitle>Recent Tickets</CardTitle>
+            <CardDescription>
+              You made {current.ticketsThisMonth} tickets this month.
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentTickets />
+            <RecentTickets
+              tickets={newestTickets}
+              image={session.user?.image}
+            />
           </CardContent>
         </Card>
       </div>
