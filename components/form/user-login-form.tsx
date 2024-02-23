@@ -34,19 +34,18 @@ export function UserLogInForm() {
     resolver: zodResolver(logInSchema),
   });
   const onSubmit: SubmitHandler<logInType> = async (formData) => {
-    console.log(formData.email);
-    console.log(formData.password);
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       username: formData.email,
       password: formData.password,
       redirect: false,
+    }).then((result) => {
+      if (!result?.ok) {
+        console.log("hello world");
+        return;
+      } else {
+        router.push("/tickets");
+      }
     });
-
-    if (!result?.ok) {
-      return;
-    } else {
-      router.push("/tickets");
-    }
   };
   return (
     <div className="grid gap-4">
