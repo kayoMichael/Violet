@@ -7,6 +7,7 @@ import {
   CrossCircledIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
+  PlayIcon,
 } from "@radix-ui/react-icons";
 
 export const labels = [
@@ -33,7 +34,7 @@ export const statuses = [
   {
     value: "todo",
     label: "Todo",
-    icon: CircleIcon,
+    icon: PlayIcon,
   },
   {
     value: "in_progress",
