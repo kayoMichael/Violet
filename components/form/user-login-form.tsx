@@ -40,7 +40,6 @@ export function UserLogInForm() {
       redirect: false,
     }).then((result) => {
       if (!result?.ok) {
-        console.log("hello world");
         return;
       } else {
         router.push("/tickets");
@@ -106,11 +105,6 @@ export function UserLogInForm() {
         className="mt-0"
         onClick={() => signIn("google", { callbackUrl: "/tickets" })}
       >
-        {/* {pending ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.google className="mr-2 h-4 w-4" />
-        )}{" "} */}
         <Icons.google className="mr-2 h-4 w-4" />
         Google
       </Button>
