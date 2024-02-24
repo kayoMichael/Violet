@@ -12,7 +12,7 @@ const SignOutPage = () => {
       <p>Hope to see you back soon!</p>
       <button
         onClick={() => {
-          signOut({ callbackUrl: "/auth/signin" });
+          signOut({ callbackUrl: "/" });
         }}
         className="btn btn-primary"
       >
