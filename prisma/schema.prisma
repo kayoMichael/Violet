@@ -7,6 +7,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Ticket {
@@ -18,7 +19,6 @@ model Ticket {
   updatedTime DateTime @updatedAt
   label       Label    @default(documentation)
   priority    Priority @default(low)
-  assignee    String?  @db.VarChar(300)
   email       String
 }
 
