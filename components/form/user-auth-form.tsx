@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/ui/icons";
 import { returnMessage } from "@/app/auth/action";
 import { useFormState } from "react-dom";
+import { SignInResponse } from "next-auth/react";
 
 import { signIn } from "next-auth/react";
 import SubmitButton from "../button/submitButton";
@@ -41,11 +42,11 @@ export function UserAuthForm({ serverAction, type }: Props) {
               id="email"
               name="email"
               placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
+              className={state?.email.length !== 0 ? "border-red-400" : ""}
             />
+            <p className="text-red-400 text-sm">
+              {type === "signup" && state?.email}
+            </p>
             <Input
               id="Password"
               name="password"
@@ -53,7 +54,9 @@ export function UserAuthForm({ serverAction, type }: Props) {
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
+              className={state?.password.length !== 0 ? "border-red-400" : ""}
             />
+            <p className="text-red-400 text-sm">{state?.password}</p>
             {type === "signup" && (
               <Input
                 id="confirmPassword"
@@ -62,10 +65,18 @@ export function UserAuthForm({ serverAction, type }: Props) {
                 type="password"
                 autoCapitalize="none"
                 autoCorrect="off"
+                className={
+                  state?.confirmPassword.length !== 0 ? "border-red-400" : ""
+                }
               />
             )}
+            <p className="text-red-400 text-sm">{state?.confirmPassword}</p>
           </div>
-          <SubmitButton>Sign Up with Credentials</SubmitButton>
+          <SubmitButton>
+            {type === "signup"
+              ? "Sign Up with Credentials"
+              : "Log In with Credentials"}
+          </SubmitButton>
         </div>
       </form>
       <div className="relative">
@@ -85,7 +96,9 @@ export function UserAuthForm({ serverAction, type }: Props) {
       <SubmitButton
         variant="outline"
         className="mt-0"
-        handleClick={() => signIn("google", { callbackUrl: "/tickets" })}
+        handleClick={(): Promise<SignInResponse | undefined> =>
+          signIn("google", { callbackUrl: "/tickets" })
+        }
       >
         <Icons.google className="mr-2 h-4 w-4" />
         Google
