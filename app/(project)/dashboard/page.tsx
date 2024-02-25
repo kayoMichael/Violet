@@ -1,4 +1,11 @@
 import React from "react";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { Charts } from "./charts";
+import { RecentTickets } from "./recentTickets";
+import prisma from "@/prisma/client";
+import authOptions from "@/app/api/auth/authOptions";
+
 import {
   Card,
   CardContent,
@@ -6,13 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Charts } from "./charts";
-import { RecentTickets } from "./recentTickets";
-import prisma from "@/prisma/client";
-import { getServerSession } from "next-auth";
-import authOptions from "@/app/api/auth/authOptions";
-import { redirect } from "next/navigation";
-
 import {
   CheckCircledIcon,
   CircleIcon,
@@ -90,29 +90,41 @@ const DashBoardPage = async () => {
   };
 
   // Current Total Tickets
+  let opened = 0;
+  let closed = 0;
+  let inProgress = 0;
+  let backLog = 0;
+  let cancelled = 0;
+  let toDo = 0;
   const count = tickets.length;
-  const opened = Math.round(
-    (tickets.filter((ticket) => ticket.status === "open").length / count) * 100
-  );
-  const closed = Math.round(
-    (tickets.filter((ticket) => ticket.status === "done").length / count) * 100
-  );
-  const inProgress = Math.round(
-    (tickets.filter((ticket) => ticket.status === "in_progress").length /
-      count) *
-      100
-  );
-  const backLog = Math.round(
-    (tickets.filter((ticket) => ticket.status === "backlog").length / count) *
-      100
-  );
-  const cancelled = Math.round(
-    (tickets.filter((ticket) => ticket.status === "canceled").length / count) *
-      100
-  );
-  const toDo = Math.round(
-    (tickets.filter((ticket) => ticket.status === "todo").length / count) * 100
-  );
+  if (count !== 0) {
+    opened = Math.round(
+      (tickets.filter((ticket) => ticket.status === "open").length / count) *
+        100
+    );
+    closed = Math.round(
+      (tickets.filter((ticket) => ticket.status === "done").length / count) *
+        100
+    );
+    inProgress = Math.round(
+      (tickets.filter((ticket) => ticket.status === "in_progress").length /
+        count) *
+        100
+    );
+    backLog = Math.round(
+      (tickets.filter((ticket) => ticket.status === "backlog").length / count) *
+        100
+    );
+    cancelled = Math.round(
+      (tickets.filter((ticket) => ticket.status === "canceled").length /
+        count) *
+        100
+    );
+    toDo = Math.round(
+      (tickets.filter((ticket) => ticket.status === "todo").length / count) *
+        100
+    );
+  }
 
   const current = countMonth(currentDate.getMonth());
   const previous = countMonth(currentDate.getMonth() - 1);
