@@ -2,7 +2,7 @@
 import { ticketSchema } from "@/components/validations/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { statuses } from "../table/data/labels";
 import { labels } from "../table/data/labels";
