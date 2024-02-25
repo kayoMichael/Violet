@@ -8,8 +8,8 @@ import { Icons } from "@/components/ui/icons";
 import { returnMessage } from "@/app/auth/action";
 import { useFormState } from "react-dom";
 import { SignInResponse } from "next-auth/react";
-
 import { signIn } from "next-auth/react";
+
 import SubmitButton from "../button/submitButton";
 
 interface Props {
