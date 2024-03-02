@@ -10,7 +10,6 @@ export default function Hero() {
           <span className="bg-gradient-to-r to-pink-500 from-indigo-500 bg-clip-text text-transparent">
             VioletTrack
           </span>{" "}
-          on the page
         </h1>
         <p className="text-xl py-6">
           An all-in-one Ticket Management System for your business/personal use.
