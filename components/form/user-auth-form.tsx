@@ -2,8 +2,6 @@
 
 import * as React from "react";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/ui/icons";
 import { returnMessage } from "@/app/auth/action";
 import { useFormState } from "react-dom";
@@ -11,18 +9,18 @@ import { SignInResponse } from "next-auth/react";
 import { signIn } from "next-auth/react";
 
 import SubmitButton from "../button/submitButton";
+import SignUpInput from "./signUpInput";
 
 interface Props {
   serverAction: (
     prevState: returnMessage,
     FormData: FormData
   ) => Promise<returnMessage>;
-  type: "login" | "signup";
 }
 
-export function UserAuthForm({ serverAction, type }: Props) {
+export function UserAuthForm({ serverAction }: Props) {
   const statusState = {
-    status: "error",
+    status: "stale",
     email: [],
     password: [],
     confirmPassword: [],
@@ -35,48 +33,9 @@ export function UserAuthForm({ serverAction, type }: Props) {
       <form action={formAction}>
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
-            <Input
-              id="email"
-              name="email"
-              placeholder="name@example.com"
-              className={state?.email.length !== 0 ? "border-red-400" : ""}
-            />
-            <p className="text-red-400 text-sm">
-              {type === "signup" && state?.email}
-            </p>
-            <Input
-              id="Password"
-              name="password"
-              placeholder="Password"
-              type="password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              className={state?.password.length !== 0 ? "border-red-400" : ""}
-            />
-            <p className="text-red-400 text-sm">{state?.password}</p>
-            {type === "signup" && (
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                type="password"
-                autoCapitalize="none"
-                autoCorrect="off"
-                className={
-                  state?.confirmPassword.length !== 0 ? "border-red-400" : ""
-                }
-              />
-            )}
-            <p className="text-red-400 text-sm">{state?.confirmPassword}</p>
+            <SignUpInput state={state} />
+            <SubmitButton>Sign Up with Credentials</SubmitButton>
           </div>
-          <SubmitButton>
-            {type === "signup"
-              ? "Sign Up with Credentials"
-              : "Log In with Credentials"}
-          </SubmitButton>
         </div>
       </form>
       <div className="relative">

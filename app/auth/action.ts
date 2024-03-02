@@ -17,7 +17,7 @@ const signUpSchema = z
   });
 
 export type returnMessage = {
-  status: "error" | "success";
+  status: "error" | "success" | "stale";
   email: string[];
   password: string[];
   confirmPassword: string[];
@@ -72,48 +72,3 @@ const logInSchema = z.object({
   email: z.string().email("Password or Email Address is incorrect."),
   password: z.string().min(6, "Password or Email Address is incorrect."),
 });
-
-export const handleLogIn = async (
-  prevState: returnMessage,
-  formData: FormData,
-) => {
-  const logInInfo = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-  const result = logInSchema.safeParse(logInInfo);
-  if (!result.success) {
-    const error = result.error.flatten().fieldErrors;
-    message.status = "error";
-    message.email = error?.email ? error.email : [];
-    message.password = error?.password ? error.password : [];
-    return message;
-  } else {
-    const user = await prisma.user.findUnique({
-      where: {
-        email: logInInfo.email!.toString(),
-      },
-    });
-    if (!user) {
-      message.status = "error";
-      message.email = ["Password or Email Address is incorrect."];
-      return message;
-    } else if (!user.password) {
-      message.status = "error";
-      message.password = ["Password or Email Address is incorrect."];
-      return message;
-    }
-    const match = await bcrypt.compare(
-      logInInfo.password!.toString(),
-      user.password!,
-    );
-    if (!match) {
-      message.status = "error";
-      message.password = ["Password or Email Address is incorrect."];
-      return message;
-    }
-  }
-  revalidatePath("/auth/login");
-  redirect("/tickets");
-  return message;
-};
