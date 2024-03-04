@@ -4,19 +4,21 @@ A simple Task Manager application built with Next.js, DaisyUI, Shadcn-ui, Prisma
 
 ## Getting Started
 
+Google OAuth is currently internal so would not be a way of signing in.
+
+Sign up Using any email and a random password and than will be directed to the login page where you can login
+
 ## Stack
 
-- Next 14 App router
-- Prisma/MySQL(Planet Scale)
-- Typescript
+[![My Skills](https://skillicons.dev/icons?i=next,typescript,react,tailwind,mysql,prisma&perline=3)](https://skillicons.dev)
+
+# UI Library
+- Shadcn-ui
 - DaisyUI
-- ShadcnUI
-- Tailwind CSS
+
+# Auth
 - NextAuthJS
-
-## Deployed Website
-
-https://violet-five.vercel.app/
+- JWT
 
 ## Run Locally
 
@@ -27,10 +29,6 @@ npm install
 npm run dev
 ```
 
-## Overall Thoughts from Project Development
+# Thoughts on Nextjs Server Actions.
 
-To be honest, it doesn't seem very efficient to use mySQL and prisma as a lot of features aren't supported and the prisma docs are written with postgresSQL or mongoDB in mind. There were a lot of times I struggled trying to implement the write queries for mySQL and it wasn't better with the lack of support with nextauthjs documentation.
-
-As of February 2024, the nextAuthJS documentation is very outdated and the examples do not function in general. This is partly because they are currently trying to migrate from nextAuthJS to AuthJS so some of the examples are around authjs instead of nextAuth. This might also be because their docs on using prisma and nextauth revolves around postgresSQL and not mySQL.
-
-Overall, since this was my first SaaS project, it was a big learning curve and showed me the importance of using the right tech stacks to create a SaaS project.
+It is still hard to say wheather it is better to use Server Actions than independent API Route Handlers. From this project, there is some evidence that mutation from form submissions can be easily done with server actions, but other forms mutations on button events or fetching important informations should still be done via Route Handlers. [As of NextJS version 14]
