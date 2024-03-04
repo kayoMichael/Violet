@@ -77,7 +77,7 @@ export default function SignUpPage() {
                 Enter your credentials below to Sign Up
               </p>
             </div>
-            <UserAuthForm type="signup" serverAction={handleSignup} />
+            <UserAuthForm serverAction={handleSignup} />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
