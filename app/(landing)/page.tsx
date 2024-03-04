@@ -14,7 +14,6 @@ export default async function Home() {
   return (
     <main className="flex flex-col max-w-6xl px-4 mx-auto space-y-20 gap-10">
       <Hero />
-      <Partners />
       <Feature
         title={"Beautiful Table"}
         description={
