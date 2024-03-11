@@ -20,7 +20,7 @@ export default async function Home() {
         }
         image={"/sass-feature-1.png"}
         isImageFirst={true}
-        id={"feature-1"}
+        id={"integrations"}
       />
       <Feature
         title={"A Comprehensive Dashboard"}
@@ -29,7 +29,6 @@ export default async function Home() {
         }
         image={"/sass-feature-2.png"}
         isImageFirst={false}
-        id={"feature-2"}
       />
       <FeaturesCards />
     </main>
