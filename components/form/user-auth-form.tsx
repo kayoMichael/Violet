@@ -48,10 +48,10 @@ export function UserAuthForm({ serverAction }: Props) {
           </span>
         </div>
       </div>
-      <SubmitButton variant="outline" className="mb-0">
+      {/* <SubmitButton variant="outline" className="mb-0">
         <Icons.gitHub className="mr-2 h-4 w-4" />
         GitHub
-      </SubmitButton>
+      </SubmitButton> */}
       <SubmitButton
         variant="outline"
         className="mt-0"

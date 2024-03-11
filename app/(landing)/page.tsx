@@ -1,7 +1,6 @@
 import Hero from "@/components/landing-sections/hero";
 import FeaturesCards from "@/components/landing-sections/feature-cards";
 import Feature from "@/components/landing-sections/feature";
-import Partners from "@/components/landing-sections/partner";
 import { getServerSession } from "next-auth";
 import authOptions from "../api/auth/authOptions";
 import { redirect } from "next/navigation";
