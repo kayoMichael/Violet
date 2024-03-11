@@ -1,7 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 export default function Feature({
   title,

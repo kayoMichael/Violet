@@ -1,11 +1,4 @@
-import {
-  CheckIcon,
-  HotelIcon,
-  MagnetIcon,
-  NewspaperIcon,
-  SendIcon,
-  StarIcon,
-} from "lucide-react";
+import { CheckIcon, HotelIcon, StarIcon } from "lucide-react";
 
 const features = [
   {
@@ -29,7 +22,7 @@ const features = [
 
 export default function FeaturesCards() {
   return (
-    <div className="">
+    <div id="features">
       <div className="text-center">
         <h1 className="text-3xl font-bold">SaaS Features</h1>
       </div>

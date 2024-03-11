@@ -1,23 +1,13 @@
 "use client";
-import heroImage from "@/components/assets/landing/saas-hero.png";
 import { Button } from "react-daisyui";
 import Image from "next/image";
-import Card3d from "card3d";
-import { useEffect, useRef } from "react";
 import InfiniteSlider from "../slider/infiniteSlider";
 
+import heroImage from "@/components/assets/landing/feature-2.png";
+import { useRouter } from "next/navigation";
+
 const Hero = () => {
-  const heroImageRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (heroImageRef.current) {
-      new Card3d(heroImageRef.current, {
-        perspective: 1000,
-        fullPageListening: true,
-      });
-    }
-  }, [heroImageRef.current]);
-
+  const router = useRouter();
   return (
     <section className="py-8 lg:py-20" id="home">
       <div className="container">
@@ -32,22 +22,21 @@ const Hero = () => {
               easy to understand features.
             </p>
             <div className="mt-16 inline-flex gap-3">
-              <Button color="primary">Get Started</Button>
-              <Button color="ghost">Learn More</Button>
+              <Button
+                color="primary"
+                onClick={() => router.push("/auth/signup")}
+              >
+                Get Started
+              </Button>
+              <Button color="ghost" onClick={() => router.push("#features")}>
+                Learn More
+              </Button>
             </div>
           </div>
 
           <div>
-            <div
-              className="rounded-2xl bg-gradient-to-r from-indigo-200 via-red-200 to-purple-300 p-3"
-              ref={heroImageRef}
-            >
-              <Image
-                alt="SaaS"
-                id="hero-image"
-                className="rounded-lg"
-                src={heroImage}
-              />
+            <div className="rounded-2xl bg-gradient-to-r from-indigo-200 via-red-200 to-purple-300 p-3">
+              <Image alt="SaaS" className="rounded-lg" src={heroImage} />
             </div>
           </div>
         </div>

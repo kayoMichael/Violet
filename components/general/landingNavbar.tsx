@@ -48,12 +48,6 @@ const Topbar = () => {
                       <Menu.Item className="font-medium">
                         <a href="#integrations">Integrations</a>
                       </Menu.Item>
-                      <Menu.Item className="font-medium">
-                        <a href="#pricing">Pricing</a>
-                      </Menu.Item>
-                      <Menu.Item className="font-medium">
-                        <a href="#faq">FAQ</a>
-                      </Menu.Item>
                     </Menu>
                   }
                 >
@@ -82,12 +76,6 @@ const Topbar = () => {
                 </Menu.Item>
                 <Menu.Item className="font-medium">
                   <a href="#integrations">Integrations</a>
-                </Menu.Item>
-                <Menu.Item className="font-medium">
-                  <a href="#pricing">Pricing</a>
-                </Menu.Item>
-                <Menu.Item className="font-medium">
-                  <a href="#faq">FAQ</a>
                 </Menu.Item>
               </Menu>
             </Navbar.Center>
