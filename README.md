@@ -31,4 +31,4 @@ npm run dev
 
 # Thoughts on Nextjs Server Actions.
 
-It is still hard to say wheather it is better to use Server Actions than independent API Route Handlers. From this project, there is some evidence that mutation from form submissions can be easily done with server actions, but other forms mutations on button events or fetching important informations should still be done via Route Handlers. [As of NextJS version 14]
+It is still difficult to figure out whether it's better to use Server Actions or stick with independent API Route Handlers. I experimentally used both in this project and it seems like handling form submissions works pretty smoothly with server actions and optimistic updates can be done without tanstack query but it doesn't seem very viable for fetching information or mutating objects outside of forms. (As of Feb 2024)
