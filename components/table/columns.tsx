@@ -24,7 +24,7 @@ export const columns: ColumnDef<Ticket>[] = [
         href={`/tickets/${parseInt(row.getValue("id"))}`}
         legacyBehavior
       >
-        {row.getValue("id")}
+        {`Task-${row.getValue("id")}`}
       </Link>
     ),
     enableSorting: false,

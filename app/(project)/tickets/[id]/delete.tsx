@@ -15,6 +15,7 @@ const DeleteTicket = ({ id, type }: Props) => {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const date = new Date();
   return (
     <>
@@ -85,6 +86,9 @@ const DeleteTicket = ({ id, type }: Props) => {
                       description: date.toDateString(),
                     });
                     setLoading(false);
+                    (
+                      document.getElementById("my_modal_3") as HTMLDialogElement
+                    )?.close();
                   }
                 }}
               >
