@@ -20,23 +20,23 @@ export default function SignUpPage() {
           src="/examples/authentication-light.png"
           width={1280}
           height={843}
-          alt="Authentication"
-          className="block dark:hidden"
+          alt=""
+          className=" dark:hidden hidden md:block"
         />
         <Image
           src="/examples/authentication-light.png"
           width={1280}
           height={843}
-          alt="Authentication"
-          className="hidden dark:block"
+          alt=""
+          className="dark:block hidden md:block"
         />
       </div>
-      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           href="/api/auth/signin"
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "absolute right-4 top-4 md:right-8 md:top-8"
+            "absolute right-4 top-4 md:right-8 md:top-8 hidden"
           )}
         >
           Log In
@@ -67,8 +67,8 @@ export default function SignUpPage() {
             </blockquote>
           </div>
         </div>
-        <div className="lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+        <div className="lg:p-8 block">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] mt-24">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
                 Welcome To VioletTrack!
