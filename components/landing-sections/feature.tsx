@@ -41,7 +41,7 @@ export default function Feature({
         <p className="text-xl py-6">{description}</p>
 
         <p>
-          <Link href="/" className="link link-hover text-primary">
+          <Link href="/auth/signup" className="link link-hover text-primary">
             Learn More
           </Link>
         </p>

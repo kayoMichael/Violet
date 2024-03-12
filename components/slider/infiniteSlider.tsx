@@ -20,11 +20,21 @@ class InfiniteSlider extends Component {
       speed: 2000,
       autoplaySpeed: 2000,
       cssEase: "linear",
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            initialSlide: 3,
+          },
+        },
+      ],
     };
     return (
       <Slider
         {...settings}
-        className="mt-12 grid-cols-2 justify-center gap-8 hidden md:grid"
+        className="mt-12 grid-cols-2 justify-center gap-8 md:grid"
       >
         <Image src={googleImage} alt="Google" className="h-8 md:inline" />
         <Image
@@ -35,17 +45,17 @@ class InfiniteSlider extends Component {
         <Image
           src={netflixImage}
           alt="Netflix"
-          className="mx-auto hidden h-6 md:inline"
+          className="mx-auto h-6 md:inline"
         />
         <Image
           src={spotifyImage}
           alt="Spotify"
-          className="mx-auto hidden h-8 md:inline"
+          className="mx-auto h-8 md:inline"
         />
         <Image
           src={paypalImage}
           alt="Paypal"
-          className="mx-auto hidden h-8 sm:inline"
+          className="mx-auto h-8 md:inline"
         />
       </Slider>
     );
