@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from '@/components/general/Navbar';
 import { Toaster } from '@/components/ui/toaster';
 
-const mainPageLayout = ({ children }: { children: ReactNode }) => {
+const mainPageLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <Navbar />

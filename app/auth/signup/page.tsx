@@ -37,11 +37,11 @@ export default function SignUpPage() {
         <Link
           className={cn(
             buttonVariants({ variant: 'ghost' }),
-            'absolute right-4 top-4 md:right-8 md:top-8 hidden'
+            'absolute right-4 top-4 md:right-8 md:top-8'
           )}
           href='/api/auth/signin'
         >
-          Log In
+          Sign In
         </Link>
         <div className='relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r'>
           <div className='absolute inset-0 bg-zinc-900' />
