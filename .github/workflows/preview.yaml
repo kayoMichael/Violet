@@ -5,7 +5,6 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   DIRECT_URL: ${{secrets.DIRECT_URL}}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
   NEXTAUTH_SECRET: $${{secrets.NEXTAUTH_SECRET}}
 on:
   push:
