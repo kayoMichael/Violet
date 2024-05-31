@@ -49,10 +49,18 @@ export const handleSignup = async (_: returnMessage, formData: FormData) => {
     return message;
   } else {
     try {
-      await prisma.user.create({
+      const user = await prisma.user.create({
         data: {
           email: signUpInfo.email.toString(),
           password: await bcrypt.hash(signUpInfo.password.toString(), 10),
+        },
+      });
+      await prisma.account.create({
+        data: {
+          userId: user.id.toString(),
+          type: 'email',
+          provider: 'credentials',
+          providerAccountId: crypto.randomUUID(),
         },
       });
     } catch {
