@@ -1,0 +1,4 @@
+**/*.js
+tailwind.config.ts
+components/ui/*
+app/global-error.jsx

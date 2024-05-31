@@ -1,16 +1,18 @@
-"use client";
-import { Ticket } from "@prisma/client";
+'use client';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import type { Ticket } from '@prisma/client';
 
 // Override console.error
 // This is a hack to suppress the warning about missing defaultProps in recharts library as of version 2.12. As of now, the library maintainers have not fixed this issue.
 // @link https://github.com/recharts/recharts/issues/3615
+/* eslint-disable */
 const error = console.error;
-console.error = (...args: any) => {
+console.error = (...args) => {
   if (/defaultProps/.test(args[0])) return;
   error(...args);
 };
+/* eslint-enable */
 
 interface Props {
   tickets: Ticket[];
@@ -19,51 +21,51 @@ interface Props {
 export function Charts({ tickets }: Props) {
   const data = [
     {
-      name: "Jan",
+      name: 'Jan',
       total: 0,
     },
     {
-      name: "Feb",
+      name: 'Feb',
       total: 0,
     },
     {
-      name: "Mar",
+      name: 'Mar',
       total: 0,
     },
     {
-      name: "Apr",
+      name: 'Apr',
       total: 0,
     },
     {
-      name: "May",
+      name: 'May',
       total: 0,
     },
     {
-      name: "Jun",
+      name: 'Jun',
       total: 0,
     },
     {
-      name: "Jul",
+      name: 'Jul',
       total: 0,
     },
     {
-      name: "Aug",
+      name: 'Aug',
       total: 0,
     },
     {
-      name: "Sep",
+      name: 'Sep',
       total: 0,
     },
     {
-      name: "Oct",
+      name: 'Oct',
       total: 0,
     },
     {
-      name: "Nov",
+      name: 'Nov',
       total: 0,
     },
     {
-      name: "Dec",
+      name: 'Dec',
       total: 0,
     },
   ];
@@ -74,27 +76,27 @@ export function Charts({ tickets }: Props) {
     data[month].total += 1;
   });
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer height={350} width='100%'>
       <BarChart data={data}>
         <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
           axisLine={false}
+          dataKey='name'
+          fontSize={12}
+          stroke='#888888'
+          tickLine={false}
         />
         <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
           axisLine={false}
+          fontSize={12}
+          stroke='#888888'
           tickFormatter={(value) => `${value}`}
+          tickLine={false}
         />
         <Bar
-          dataKey="total"
-          fill="currentColor"
+          className='fill-primary'
+          dataKey='total'
+          fill='currentColor'
           radius={[4, 4, 0, 0]}
-          className="fill-primary"
         />
       </BarChart>
     </ResponsiveContainer>

@@ -1,18 +1,5 @@
-import React from "react";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { Charts } from "./charts";
-import { RecentTickets } from "./recentTickets";
-import prisma from "@/prisma/client";
-import authOptions from "@/app/api/auth/authOptions";
+import React from 'react';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   CheckCircledIcon,
   CircleIcon,
@@ -21,25 +8,40 @@ import {
   StopwatchIcon,
   RocketIcon,
   PlayIcon,
-} from "@radix-ui/react-icons";
+} from '@radix-ui/react-icons';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+
+import { Charts } from './charts';
+import { RecentTickets } from './recentTickets';
+
+import authOptions from '@/app/api/auth/authOptions';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import prisma from '@/prisma/client';
 
 const DashBoardPage = async () => {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/api/auth/signin");
+  if (!session?.user?.email) {
+    redirect('/api/auth/signin');
   }
   const tickets = await prisma.ticket.findMany({
     where: {
-      email: session.user!.email!,
+      email: session.user.email,
     },
   });
 
   const newestTickets = await prisma.ticket.findMany({
     where: {
-      email: session.user!.email!,
+      email: session.user.email,
     },
     orderBy: {
-      date: "desc",
+      date: 'desc',
     },
     take: 5,
   });
@@ -52,22 +54,22 @@ const DashBoardPage = async () => {
     });
     const ticketsThisMonth = totalTicketsThisMonth.length;
     const openedThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "open"
+      (ticket) => ticket.status === 'open'
     ).length;
     const closedThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "done"
+      (ticket) => ticket.status === 'done'
     ).length;
     const inProgressThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "in_progress"
+      (ticket) => ticket.status === 'in_progress'
     ).length;
     const backLogThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "backlog"
+      (ticket) => ticket.status === 'backlog'
     ).length;
     const cancelledThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "canceled"
+      (ticket) => ticket.status === 'canceled'
     ).length;
     const toDoThisMonth = totalTicketsThisMonth.filter(
-      (ticket) => ticket.status === "todo"
+      (ticket) => ticket.status === 'todo'
     ).length;
     return {
       ticketsThisMonth,
@@ -81,7 +83,7 @@ const DashBoardPage = async () => {
   };
 
   const percentageIncrease = (current: number, previous: number) => {
-    if (previous === 0 && current === 0) return "+0% from last month";
+    if (previous === 0 && current === 0) return '+0% from last month';
     else if (previous === 0) return `+100% from last month`;
     else if (current === 0) return `-100% from last month`;
     else if (previous > current)
@@ -99,29 +101,29 @@ const DashBoardPage = async () => {
   const count = tickets.length;
   if (count !== 0) {
     opened = Math.round(
-      (tickets.filter((ticket) => ticket.status === "open").length / count) *
+      (tickets.filter((ticket) => ticket.status === 'open').length / count) *
         100
     );
     closed = Math.round(
-      (tickets.filter((ticket) => ticket.status === "done").length / count) *
+      (tickets.filter((ticket) => ticket.status === 'done').length / count) *
         100
     );
     inProgress = Math.round(
-      (tickets.filter((ticket) => ticket.status === "in_progress").length /
+      (tickets.filter((ticket) => ticket.status === 'in_progress').length /
         count) *
         100
     );
     backLog = Math.round(
-      (tickets.filter((ticket) => ticket.status === "backlog").length / count) *
+      (tickets.filter((ticket) => ticket.status === 'backlog').length / count) *
         100
     );
     cancelled = Math.round(
-      (tickets.filter((ticket) => ticket.status === "canceled").length /
+      (tickets.filter((ticket) => ticket.status === 'canceled').length /
         count) *
         100
     );
     toDo = Math.round(
-      (tickets.filter((ticket) => ticket.status === "todo").length / count) *
+      (tickets.filter((ticket) => ticket.status === 'todo').length / count) *
         100
     );
   }
@@ -130,18 +132,18 @@ const DashBoardPage = async () => {
   const previous = countMonth(currentDate.getMonth() - 1);
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-10">
+      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-10'>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Tickets</CardTitle>
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>Total Tickets</CardTitle>
             <RocketIcon
-              className="h-4 w-4 text-muted-foreground"
-              color="blue"
+              className='h-4 w-4 text-muted-foreground'
+              color='blue'
             />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{count}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{count}</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.ticketsThisMonth,
                 previous.ticketsThisMonth
@@ -150,16 +152,16 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Opened</CardTitle>
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>Opened</CardTitle>
             <CircleIcon
-              className="h-4 w-4 text-muted-foreground"
-              color="purple"
+              className='h-4 w-4 text-muted-foreground'
+              color='purple'
             />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{opened}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{opened}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.openedThisMonth,
                 previous.openedThisMonth
@@ -168,16 +170,16 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completed</CardTitle>
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>Completed</CardTitle>
             <CheckCircledIcon
-              className="h-4 w-4 text-muted-foreground"
-              color="green"
+              className='h-4 w-4 text-muted-foreground'
+              color='green'
             />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{closed}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{closed}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.closedThisMonth,
                 previous.closedThisMonth
@@ -186,16 +188,16 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>In Progress</CardTitle>
             <StopwatchIcon
-              className="h-4 w-4 text-muted-foreground"
-              color="pink"
+              className='h-4 w-4 text-muted-foreground'
+              color='pink'
             />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{inProgress}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{inProgress}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.inProgressThisMonth,
                 previous.inProgressThisMonth
@@ -204,26 +206,26 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
               Tickets this month
             </CardTitle>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
+              className='h-4 w-4 text-muted-foreground'
+              fill='none'
+              stroke='currentColor'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
             >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              <path d='M22 12h-4l-3 9L9 3l-3 9H2' />
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{current.ticketsThisMonth}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{current.ticketsThisMonth}</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.ticketsThisMonth,
                 previous.ticketsThisMonth
@@ -232,13 +234,13 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Back Log</CardTitle>
-            <QuestionMarkCircledIcon className="h-4 w-4 text-muted-foreground" />
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>Back Log</CardTitle>
+            <QuestionMarkCircledIcon className='h-4 w-4 text-muted-foreground' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{backLog}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{backLog}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.backLogThisMonth,
                 previous.backLogThisMonth
@@ -247,16 +249,16 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Cancelled</CardTitle>
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>Cancelled</CardTitle>
             <CrossCircledIcon
-              className="h-4 w-4 text-muted-foreground"
-              color="red"
+              className='h-4 w-4 text-muted-foreground'
+              color='red'
             />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{cancelled}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{cancelled}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.cancelledThisMonth,
                 previous.cancelledThisMonth
@@ -265,15 +267,15 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+            <CardTitle className='text-sm font-medium'>
               To Do This Month
             </CardTitle>
-            <PlayIcon className="h-4 w-4 text-muted-foreground" color="green" />
+            <PlayIcon className='h-4 w-4 text-muted-foreground' color='green' />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{toDo}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className='text-2xl font-bold'>{toDo}%</div>
+            <p className='text-xs text-muted-foreground'>
               {percentageIncrease(
                 current.toDoThisMonth,
                 previous.toDoThisMonth
@@ -282,18 +284,18 @@ const DashBoardPage = async () => {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-10">
-        <Card className="col-span-4">
+      <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-10'>
+        <Card className='col-span-4'>
           <CardHeader>
-            <CardTitle className="flex justify-center">
+            <CardTitle className='flex justify-center'>
               Tickets for the year {currentDate.getFullYear()}
             </CardTitle>
           </CardHeader>
-          <CardContent className="pl-2">
+          <CardContent className='pl-2'>
             <Charts tickets={tickets} />
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className='col-span-3'>
           <CardHeader>
             <CardTitle>Recent Tickets</CardTitle>
             <CardDescription>
@@ -302,8 +304,8 @@ const DashBoardPage = async () => {
           </CardHeader>
           <CardContent>
             <RecentTickets
-              tickets={newestTickets}
               image={session.user?.image}
+              tickets={newestTickets}
             />
           </CardContent>
         </Card>

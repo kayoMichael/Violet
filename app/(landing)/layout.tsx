@@ -1,11 +1,15 @@
-import React, { ReactNode } from "react";
-import { Metadata } from "next";
+import type { ReactNode } from 'react';
+import React from 'react';
+
+import type { Metadata } from 'next';
+
+import LandingNavbar from '@/components/general/landingNavbar';
 
 export const metadata: Metadata = {
-  title: "Violet Track",
-  description: "Task and Issue Management APP Built with Next.js 14 and MySQl",
+  title: 'Violet Track',
+  description: 'Task and Issue Management APP Built with Next.js 14 and MySQl',
 };
-import LandingNavbar from "@/components/general/landingNavbar";
+
 const LandingLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>

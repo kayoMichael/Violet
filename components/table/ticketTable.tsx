@@ -1,9 +1,7 @@
-"use client";
+'use client';
+import { useState } from 'react';
+
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -12,10 +10,17 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import { DataTablePagination } from "./tablePagination";
-import { DataTableToolBar } from "./tableToolbar";
+import { DataTablePagination } from './tablePagination';
+import { DataTableToolBar } from './tableToolbar';
+
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -24,11 +29,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { useState } from "react";
+} from '@/components/ui/table';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
 }
 
@@ -62,16 +66,16 @@ export const TicketTable = <TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       <DataTableToolBar table={table} />
-      <div className="rounded-md border">
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead colSpan={header.colSpan} key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -88,8 +92,8 @@ export const TicketTable = <TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  data-state={row.getIsSelected() && 'selected'}
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -104,8 +108,8 @@ export const TicketTable = <TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell
+                  className='h-24 text-center'
                   colSpan={columns.length}
-                  className="h-24 text-center"
                 >
                   No results.
                 </TableCell>

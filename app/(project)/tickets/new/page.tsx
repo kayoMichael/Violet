@@ -1,5 +1,6 @@
-import TicketForm from "@/components/form/ticketForm";
-import React from "react";
+import React from 'react';
+
+import TicketForm from '@/components/form/ticketForm';
 
 const NewTicketPage = () => {
   return <TicketForm />;

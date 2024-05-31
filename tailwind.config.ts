@@ -1,9 +1,9 @@
-import type { Config } from "tailwindcss"
+import type { Config } from 'tailwindcss';
 
-const daisyuiColorObj = require('daisyui/src/theming/index')
+const daisyuiColorObj = require('daisyui/src/theming/index');
 
 const config = {
-  darkMode: ["class"],
+  darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -11,14 +11,14 @@ const config = {
     './src/**/*.{ts,tsx}',
     'node_modules/daisyui/dist/**/*.js',
     'node_modules/react-daisyui/dist/**/*.js',
-	],
-  prefix: "",
+  ],
+  prefix: '',
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
@@ -78,10 +78,14 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("daisyui"), require('@tailwindcss/typography')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('daisyui'),
+    require('@tailwindcss/typography'),
+  ],
   daisyui: {
-    themes: ["cupcake"]
-  }
-} satisfies Config
+    themes: ['cupcake'],
+  },
+} satisfies Config;
 
-export default config
+export default config;

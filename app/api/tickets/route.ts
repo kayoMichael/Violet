@@ -1,13 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/prisma/client";
-import { ticketSchema } from "../../../components/validations/schema";
-import { getServerSession } from "next-auth";
-import authOptions from "../auth/authOptions";
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+
+import { ticketSchema } from '../../../components/validations/schema';
+import authOptions from '../auth/authOptions';
+
+import type { NextRequest } from 'next/server';
+
+import prisma from '@/prisma/client';
+
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.email) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const body = await request.json();
 
@@ -24,7 +29,7 @@ export async function POST(request: NextRequest) {
       label: body.label,
       status: body.status,
       priority: body.priority,
-      email: session.user!.email!,
+      email: session.user.email,
     },
   });
 

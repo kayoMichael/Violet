@@ -1,2 +1,3 @@
-import LoadingNewTicketPage from "../../new/loading";
+import LoadingNewTicketPage from '../../new/loading';
+
 export default LoadingNewTicketPage;

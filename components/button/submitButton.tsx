@@ -1,9 +1,10 @@
-"use client";
-import { ReactNode } from "react";
-import { useFormStatus } from "react-dom";
+'use client';
+import type { ReactNode } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useFormStatus } from 'react-dom';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface Props {
   children: ReactNode;
@@ -11,12 +12,12 @@ interface Props {
   className?: string;
   disabled?: boolean;
   variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link"
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | 'link'
     | null
     | undefined;
 }
@@ -34,11 +35,11 @@ const SubmitButton = ({
       className={cn(className)}
       disabled={pending || disabled}
       onClick={handleClick}
-      type="submit"
+      type='submit'
       variant={variant}
     >
       {pending && (
-        <div className="animate-spin h-6 w-6 mr-2 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+        <div className='animate-spin h-6 w-6 mr-2 border-4 border-blue-500 rounded-full border-t-transparent'></div>
       )}
       {children}
     </Button>

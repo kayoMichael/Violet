@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { returnMessage } from "@/app/auth/action";
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+
+import type { returnMessage } from '@/app/auth/action';
 
 interface Props {
   state: returnMessage;
@@ -10,36 +11,36 @@ interface Props {
 const SignUpInput = ({ state }: Props) => {
   return (
     <>
-      <Label className="sr-only" htmlFor="email">
+      <Label className='sr-only' htmlFor='email'>
         Email
       </Label>
       <Input
-        id="email"
-        name="email"
-        placeholder="name@example.com"
-        className={state?.email.length !== 0 ? "border-red-400" : ""}
+        className={state?.email.length !== 0 ? 'border-red-400' : ''}
+        id='email'
+        name='email'
+        placeholder='name@example.com'
       />
-      <p className="text-red-400 text-sm">{state?.email}</p>
+      <p className='text-red-400 text-sm'>{state?.email}</p>
       <Input
-        id="Password"
-        name="password"
-        placeholder="Password"
-        type="password"
-        autoCapitalize="none"
-        autoCorrect="off"
-        className={state?.password.length !== 0 ? "border-red-400" : ""}
+        autoCapitalize='none'
+        autoCorrect='off'
+        className={state?.password.length !== 0 ? 'border-red-400' : ''}
+        id='Password'
+        name='password'
+        placeholder='Password'
+        type='password'
       />
-      <p className="text-red-400 text-sm">{state?.password}</p>
+      <p className='text-red-400 text-sm'>{state?.password}</p>
       <Input
-        id="confirmPassword"
-        name="confirmPassword"
-        placeholder="Confirm Password"
-        type="password"
-        autoCapitalize="none"
-        autoCorrect="off"
-        className={state?.confirmPassword.length !== 0 ? "border-red-400" : ""}
+        autoCapitalize='none'
+        autoCorrect='off'
+        className={state?.confirmPassword.length !== 0 ? 'border-red-400' : ''}
+        id='confirmPassword'
+        name='confirmPassword'
+        placeholder='Confirm Password'
+        type='password'
       />
-      <p className="text-red-400 text-sm">{state?.confirmPassword}</p>
+      <p className='text-red-400 text-sm'>{state?.confirmPassword}</p>
     </>
   );
 };

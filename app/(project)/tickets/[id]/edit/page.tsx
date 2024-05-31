@@ -1,6 +1,7 @@
-import TicketForm from "@/components/form/ticketForm";
-import prisma from "@/prisma/client";
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
+
+import TicketForm from '@/components/form/ticketForm';
+import prisma from '@/prisma/client';
 
 interface Props {
   params: { id: string };

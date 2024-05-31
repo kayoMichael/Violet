@@ -1,34 +1,37 @@
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import type { Adapter } from "next-auth/adapters";
-import prisma from "@/prisma/client";
-import { NextAuthOptions } from "next-auth";
-import * as bcrypt from "bcrypt";
-import { User } from "@prisma/client";
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import * as bcrypt from 'bcrypt';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+
+import type { User } from '@prisma/client';
+import type { NextAuthOptions } from 'next-auth';
+import type { Adapter } from 'next-auth/adapters';
+
+import env from '@/lib/env';
+import prisma from '@/prisma/client';
 
 const authOptions: NextAuthOptions = {
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
   },
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
         username: {
-          label: "Username",
-          type: "text",
-          placeholder: "name@exampe.com",
+          label: 'Username',
+          type: 'text',
+          placeholder: 'name@exampe.com',
         },
-        password: { label: "Password", type: "password" },
+        password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials, _) {
         try {
           const user = await prisma.user.findUnique({
             where: {
@@ -45,7 +48,7 @@ const authOptions: NextAuthOptions = {
           }
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
-            user.password,
+            user.password
           );
 
           if (!isPasswordCorrect) {
@@ -54,7 +57,7 @@ const authOptions: NextAuthOptions = {
 
           const { password, ...userWithoutPass } = user;
           return userWithoutPass;
-        } catch (error) {
+        } catch {
           return null;
         }
       },
@@ -62,7 +65,7 @@ const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   callbacks: {
     async jwt({ token, user }) {

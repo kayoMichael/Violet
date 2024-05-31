@@ -1,9 +1,12 @@
-import prisma from "@/prisma/client";
-import { ticketSchema } from "@/components/validations/schema";
-import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authOptions from "../../auth/authOptions";
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+
+import authOptions from '../../auth/authOptions';
+
+import type { NextRequest } from 'next/server';
+
+import { ticketSchema } from '@/components/validations/schema';
+import prisma from '@/prisma/client';
 
 interface Props {
   params: { id: string };
@@ -12,7 +15,7 @@ export async function PATCH(request: NextRequest, { params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const body = await request.json();
   const validation = ticketSchema.safeParse(body);
@@ -25,7 +28,7 @@ export async function PATCH(request: NextRequest, { params: { id } }: Props) {
   });
 
   if (!ticket) {
-    return NextResponse.json({ error: "Ticket not found" }, { status: 404 });
+    return NextResponse.json({ error: 'Ticket not found' }, { status: 404 });
   }
 
   const updatedTicket = await prisma.ticket.update({
@@ -42,18 +45,18 @@ export async function PATCH(request: NextRequest, { params: { id } }: Props) {
   return NextResponse.json(updatedTicket, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, { params: { id } }: Props) {
+export async function DELETE(_: NextRequest, { params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const ticket = await prisma.ticket.findUnique({
     where: { id: parseInt(id) },
   });
 
   if (!ticket) {
-    return NextResponse.json({ error: "Ticket not found" }, { status: 404 });
+    return NextResponse.json({ error: 'Ticket not found' }, { status: 404 });
   }
 
   const deletedTicket = await prisma.ticket.delete({
