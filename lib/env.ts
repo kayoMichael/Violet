@@ -6,10 +6,6 @@ const envSchema = z.object({
   DIRECT_URL: z.string(),
   NEXTAUTH_URL: z.string().default('http://localhost:3000'),
   NEXTAUTH_SECRET: z.string().min(16),
-  GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string(),
-  SUPABASE_PROJECT_URL: z.string(),
-  SUPABASE_API_KEY: z.string(),
 });
 
 const env = envSchema.parse(process.env);
