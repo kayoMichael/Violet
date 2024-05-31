@@ -1,6 +1,6 @@
 # Next.js Task Manager App
 
-A simple Task Manager application built with Next.js
+A Simple Task Manager application built with Next.js. As of May 2024, migrated to SupaBase (PSQL) due to the pricing structure change of PlanetBase.
 
 ## Getting Started
 
