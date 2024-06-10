@@ -14,5 +14,5 @@ export async function PATCH(
       email: body.email || undefined,
     },
   });
-  return NextResponse.json(user, { status: 201 });
+  return NextResponse.json(user, { status: 200 });
 }

@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export const logInSchema = z.object({
-  email: z.string().email('メールアドレスが無効です。'),
+  email: z.string().trim().email('メールアドレスが無効です。'),
   password: z
     .string()
     .min(6, 'パスワードが間違っています。再度お試しください。'),
@@ -34,7 +34,7 @@ export function UserLogInForm() {
   const onSubmit: SubmitHandler<logInType> = async (formData) => {
     setLoading(true);
     await signIn('credentials', {
-      username: formData.email,
+      username: formData.email.trim(),
       password: formData.password,
       redirect: false,
     }).then((result) => {
