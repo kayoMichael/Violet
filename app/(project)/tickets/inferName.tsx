@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
 import { Loading } from 'react-daisyui';
 
 import {
@@ -19,8 +20,7 @@ const InferName = ({ user }: { user: { id: string; name: string | null } }) => {
   const [open, setOpen] = useState(!user.name);
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
-  console.log(user.name);
-  console.log(name);
+  const router = useRouter();
   return (
     <AlertDialog onOpenChange={setOpen} open={open}>
       <AlertDialogContent>
@@ -38,6 +38,7 @@ const InferName = ({ user }: { user: { id: string; name: string | null } }) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction
+            disabled={name.trim() === ''}
             onClick={async () => {
               setLoading(true);
               await fetch(`/api/users/${user.id}`, {
@@ -47,6 +48,7 @@ const InferName = ({ user }: { user: { id: string; name: string | null } }) => {
                 },
                 body: JSON.stringify({ name }),
               });
+              router.refresh();
               setLoading(false);
             }}
           >

@@ -8,7 +8,7 @@ import prisma from '@/prisma/client';
 
 const signUpSchema = z
   .object({
-    email: z.string().email('Please Provide a Valid Email Address.'),
+    email: z.string().trim().email('Please Provide a Valid Email Address.'),
     password: z.string().min(6, 'Password must be at least 6 characters.'),
     confirmPassword: z.string(),
   })
@@ -51,7 +51,7 @@ export const handleSignup = async (_: returnMessage, formData: FormData) => {
     try {
       const user = await prisma.user.create({
         data: {
-          email: signUpInfo.email.toString(),
+          email: signUpInfo.email.toString().trim(),
           password: await bcrypt.hash(signUpInfo.password.toString(), 10),
         },
       });
