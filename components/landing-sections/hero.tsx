@@ -5,7 +5,7 @@ import { Button } from 'react-daisyui';
 
 import InfiniteSlider from '../slider/infiniteSlider';
 
-import heroImage from '@/components/assets/landing/feature-2.png';
+import heroImage from '@/components/assets/landing/main-landing.png';
 
 const Hero = () => {
   const router = useRouter();
