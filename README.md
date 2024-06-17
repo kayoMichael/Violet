@@ -1,6 +1,7 @@
 # Next.js Task Manager App
 
-A Simple Task Manager application built with Next.js. As of May 2024, migrated to SupaBase (PSQL) due to the pricing structure change of PlanetBase.
+A Simple Task Manager application built with Next.js. As of May 2024, migrated to SupaBase (PSQL) due to the pricing structure change of PlanetBase. 
+It utilizes API endpoints and the new Server Actions.
 
 ## Getting Started
 
@@ -64,7 +65,6 @@ app
 │   │   ├── [...nextauth]
 │   │   │   └── route.ts
 │   │   └── authOptions.ts
-│   ├── sentry-example-api
 │   ├── tickets
 │   │   ├── [id]
 │   │   │   └── route.ts
@@ -141,7 +141,3 @@ components
     └── schema.ts
 
 ```
-
-# Thoughts on Nextjs Server Actions
-
-It is still difficult to figure out whether it's better to use Server Actions or stick with independent API Route Handlers. I experimentally used both in this project and it seems like handling form submissions works pretty smoothly with server actions and optimistic updates can be done without tanstack query but it doesn't seem very viable for fetching information or mutating objects outside of forms. (As of Feb 2024)
