@@ -16,10 +16,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 export const logInSchema = z.object({
-  email: z.string().trim().email('メールアドレスが無効です。'),
-  password: z
-    .string()
-    .min(6, 'パスワードが間違っています。再度お試しください。'),
+  email: z.string().trim().email('The Email is not valid. Please try again'),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
 
 type logInType = z.infer<typeof logInSchema>;
@@ -78,7 +76,7 @@ export function UserLogInForm() {
             />
             {error && <p className='text-red-400 text-sm'>{error}</p>}
           </div>
-          <Button type='submit'>
+          <Button disabled={loading} type='submit'>
             {loading && <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />}
             Log In with Credentials
           </Button>

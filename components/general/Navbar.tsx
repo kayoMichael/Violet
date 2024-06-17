@@ -58,12 +58,6 @@ const Navbar = () => {
                 tabIndex={0}
               >
                 <li>
-                  <a>
-                    Profile
-                    <span className='badge'>New</span>
-                  </a>
-                </li>
-                <li>
                   <h1>{session.user?.email}</h1>
                 </li>
                 <li>
