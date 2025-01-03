@@ -32,6 +32,10 @@ npm install
 npm run dev
 ```
 
+## Overall System Design
+
+https://gitdiagram.com/kayoMichael/VioletTrack
+
 # Project
 
 ```
